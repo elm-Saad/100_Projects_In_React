@@ -7,9 +7,9 @@ const App = () => {
   const [questions,setQuestions] = useState<DataType[]>(data)
 
   return (
-    <main>
-      <section>
-        <h1>Questions</h1>
+    <main className="min-h-screen w-full flex items-center justify-center bg-gray-100">
+      <section className="max-w-[600px] p-4 shadow-lg rounded-lg bg-white">
+        <h1 className="text-center font-bold select-none">Questions</h1>
         {questions.map(Qrs => {
           return <div key={Qrs.id}>
             <SingleQuestion {...Qrs} />
