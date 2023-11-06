@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.FaAngleDoubleRight{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.FaAngleDoubleRight > path{
+    width: 100%;
+    height: 100%;
+}
