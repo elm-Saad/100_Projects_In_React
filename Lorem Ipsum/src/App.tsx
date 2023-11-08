@@ -1,19 +1,28 @@
 import { useState } from "react"
+import { nanoid } from "nanoid"
+import text from "./data"
 
+const id = nanoid()
 const App = () => {
-  const [number,setNumber] = useState<number | ''>('')
+  const [number,setNumber] = useState<number>(1)
+  const [LoremText, setLoremText] = useState<string[]>([])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const InputValue = e.target.value
     const parsedValue = parseInt(InputValue, 10)
 
-    if (InputValue === '' || !isNaN(parsedValue)) {
-      setNumber((InputValue === '')? '' : parsedValue)
+    if (!isNaN(parsedValue)) {
+      setNumber(parsedValue)
     }
   }
 
   const handleSubmit = (e: React.FormEvent) =>{
     e.preventDefault()
+    const newText = text.slice(0, number)
+    setLoremText(newText)
+
+
+    
     
   }
   return(
@@ -29,7 +38,10 @@ const App = () => {
             type="number"
             name="number"
             id="number" 
-            placeholder="number of paragraph"
+            min='1'
+            max='8'
+            step='1'
+            placeholder="1"
             className="p-2 px-4 bg-white border rounded-md outline-none "
             value={number}
             onChange={handleChange}
@@ -41,15 +53,16 @@ const App = () => {
           </button>
         </form>
         <div className="max-w-[800px] m-2 p-4">
-          <p className="my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum illo accusantium inventore corporis atque quam culpa ratione. Repellat temporibus minima earum neque architecto, ut obcaecati necessitatibus porro asperiores. Aliquid, possimus.
-          </p>
-          <p className="my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum illo accusantium inventore corporis atque quam culpa ratione. Repellat temporibus minima earum neque architecto, ut obcaecati necessitatibus porro asperiores. Aliquid, possimus.
-          </p>
-          <p className="my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum illo accusantium inventore corporis atque quam culpa ratione. Repellat temporibus minima earum neque architecto, ut obcaecati necessitatibus porro asperiores. Aliquid, possimus.
-          </p>
+          {
+            LoremText.map((item)=>{
+              return <p 
+                className="my-4"
+                key={id}
+              >
+                {item}
+            </p>
+            })
+          }
         </div>
       </section>
     </main>
