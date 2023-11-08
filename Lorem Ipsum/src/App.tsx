@@ -2,7 +2,6 @@ import { useState } from "react"
 import { nanoid } from "nanoid"
 import text from "./data"
 
-const id = nanoid()
 const App = () => {
   const [number,setNumber] = useState<number>(1)
   const [LoremText, setLoremText] = useState<string[]>([])
@@ -57,7 +56,7 @@ const App = () => {
             LoremText.map((item)=>{
               return <p 
                 className="my-4"
-                key={id}
+                key={nanoid()}
               >
                 {item}
             </p>
