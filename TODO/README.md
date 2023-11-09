@@ -2,4 +2,4 @@
 
 // what to learn
 
-=>  
+=>  localStorage
