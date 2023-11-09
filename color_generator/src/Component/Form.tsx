@@ -1,6 +1,7 @@
 import {useState} from 'react'
 
 const DefaultColor: string = '#3F18C9'
+
 const Form = ({changeColor}: any) =>{
     const [Color, setColor] = useState<string>('')
 
@@ -12,11 +13,13 @@ const Form = ({changeColor}: any) =>{
     const handleSubmit = (e: React.FormEvent) =>{
         e.preventDefault()
         changeColor(Color)
-        
     }
 
-    return <section>
-        <form onSubmit={handleSubmit}>
+    return <section className='p-2 bg-white shadow rounded-md'>
+        <form 
+            onSubmit={handleSubmit}
+            className='flex items-center flex-col sm:flex-row gap-2'
+        >
             <input
                 type="color"
                 value={Color?Color:DefaultColor}
@@ -27,11 +30,13 @@ const Form = ({changeColor}: any) =>{
                 placeholder={DefaultColor}
                 value={Color}
                 onChange={handleChange}
+                className='border rounded-md px-2 p-1'
             />
             <button
-                className={`bg-[#3F18C9]`}
+                className={`select-none bg-[#3F18C9] px-2 p-1 rounded-md text-gray-100 drop-shadow `}
                 style={{
-                    background: Color
+                    background: Color,
+                    textShadow: '#000 1px 0 2px'
                 }}
 
             >
