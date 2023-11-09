@@ -1,4 +1,4 @@
-# Lorem Ipsum
+# Color Generator
 
 // what to learn
 
