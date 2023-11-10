@@ -9,7 +9,11 @@ This repository contains a collection of React projects, ranging from simple to 
 To get started, clone this repository to your local machine. Once you're done, you can navigate to any of the project folders and run the following command:
 
 ```
-npm start
+cd project_name
+
+npm install
+npm run dev
+
 ```
 
 This will start the development server and open the project in your browser. You can then start coding and see your changes reflected in the browser in real-time.
