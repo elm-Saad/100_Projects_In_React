@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@media (min-width: 768px) {
+    .custom-Height{
+        height: 63.98px !important;
+    }
+}
