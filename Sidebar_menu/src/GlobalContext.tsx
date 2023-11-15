@@ -41,7 +41,7 @@ export const GlobalApp = ({children}: any)=>{
 export const useContextAPI = (): GlobalContextType=>{
     const context =  useContext(GlobalContextAPI)
     if (!context) {
-        throw new Error("useContextAPI must be used within a GlobalApp provider");
-      }
-      return context
+        throw new Error("useContextAPI must be used within a GlobalApp provider")
+    }
+    return context
 }
