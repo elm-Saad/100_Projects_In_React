@@ -18,4 +18,4 @@
 * // 3/ get the left right bottom position relative to the viewport. using the Ref and the 
 getBoundingClientRect() 
 * // 4/ get the e.ClientX and e.ClientY 
-* // 5/ if left > e.ClientX or right < e.clientX or bottom < clientY set the nav to null
+* // 5/ if left > e.ClientX or right < e.clientX or bottom < clientY set the nav to null 
