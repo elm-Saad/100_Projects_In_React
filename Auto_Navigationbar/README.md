@@ -4,22 +4,18 @@
 
 =>  useRef hook
 => getBoundingClientRect
+=> event.ClientY
+=> event.ClientX
+
 
 // Here's a snippet of the code:
 
-```jsx
-const LinksRef = useRef(null)
 
-// ...
-
-<div
-  style={{
-        height: (boolean state)
-        ? `${LinksRef.current.getBoundingClientRect().height}px`
-        : '0px',
-    }}
->
-  <ul className='links' ref={linksRef}>
-    {/* ... */}
-  </ul>
-</div>
+* using the e.ClientX e.ClientY getBoundingClientRect() 
+* to control the show/hide of the Submenu => hide on left right button when out from the submenu 
+* // 1/ set a function to handle the logic onMouseLeave
+* // 2/ get the hole section by Ref 
+* // 3/ get the left right bottom position relative to the viewport. using the Ref and the 
+getBoundingClientRect() 
+* // 4/ get the e.ClientX and e.ClientY 
+* // 5/ if left > e.ClientX or right < e.clientX or bottom < clientY set the nav to null
