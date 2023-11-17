@@ -5,6 +5,8 @@ const GlobalContextAPI = createContext<ContextValueType|undefined>(undefined)
 
 export const GlobalContext = ({children}: any) =>{
     const [isNavOpen,setIsNavOpen] = useState<boolean>(false)
+    // handle NavLG change 
+    const [currentPage, setCurrentPage] = useState<string|null>(null)
 
     const openNav = (): void  =>{
         setIsNavOpen(true)
@@ -13,6 +15,8 @@ export const GlobalContext = ({children}: any) =>{
         setIsNavOpen(false)
     }
     const contextValue: ContextValueType = {
+        currentPage,
+        setCurrentPage,
         isNavOpen,
         openNav,
         closeNav,

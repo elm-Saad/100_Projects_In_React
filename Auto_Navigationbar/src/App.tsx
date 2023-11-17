@@ -1,6 +1,7 @@
 import Hero from "./Component/Hero"
 import Navbar from "./Component/Navbar"
 import Sidebar from "./Component/Sidebar"
+import Submenu from "./Component/Submenu"
 import { useContextAPI } from "./Globalcontext"
 
 
@@ -11,6 +12,7 @@ const App =()=>{
       <Navbar />
       <Hero />
       <Sidebar />
+      <Submenu />
     </section>
   </main>
 }

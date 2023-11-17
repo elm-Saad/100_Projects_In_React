@@ -13,6 +13,8 @@ export interface sublinksType {
 }
 
 export interface ContextValueType {
+    currentPage: string | null
+    setCurrentPage: React.Dispatch<React.SetStateAction<string | null>>
     isNavOpen: boolean
     openNav: ()=> void
     closeNav: ()=> void

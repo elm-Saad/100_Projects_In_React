@@ -7,3 +7,11 @@
 .h-custom{
     height: calc(100vh - 64px);
 }
+/*transform menu css logic*/
+.submenu{
+    transform: rotateX(-90deg) translateX(-50%);
+    perspective: 1000px;
+}
+.show {
+    transform: rotateX(0deg) translate(-50%);
+}
