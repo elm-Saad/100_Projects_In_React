@@ -11,4 +11,6 @@ export interface CartItemsType {
 export interface ContextValueType {
     loading: boolean
     cart: []
+    ClearAllCardItems: ()=> void
+    RemoveSingleCardItem: (id: string) => void
 }

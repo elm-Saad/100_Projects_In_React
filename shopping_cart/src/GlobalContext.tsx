@@ -22,25 +22,41 @@ const GlobalContextAPI = createContext<ContextValueType|undefined>(undefined)
  * 
  * =>TO :
  * 
- * const cart = {
- * 'id-1': { id: 1, name: 'first', price: 10 },
- * 'id-2': { id: 2, name: 'second', price: 20 },
- * }
+ * const cart =[
+ *   [1, { id: 1, name: 'first', price: 10 }],
+ *   [2, { id: 2, name: 'second', price: 20 }],
+ * ]
  * 
 */
+// const items = cartItems.map(item=>{
+//     return [item.id, item]
+// })
+//const card = new Map(items) to control it like : get has delete and size
+
+// convert the Map to an array of key-value pairs
+// const cartArray = Array.from(card.entries())
 
 const defaultState = {
     loading: false,
-    cart: [...cartItems]
+    cart: new Map(cartItems.map(item=>{
+        return [item.id, item]
+    }))
 }
 
 export const GlobalContext = ({children}: any) =>{
-    
+
     const [state,dispatch] = useReducer(reducer,defaultState)
-    // const contextValue: ContextValueType = {
-    //    name:'saad'
-    // }
-    return <GlobalContextAPI.Provider value={{...state}}>
+
+
+    const ClearAllCardItems = () =>{
+        dispatch({type:CLEAR_CART})
+    }
+
+    const RemoveSingleCardItem = (id) => {
+        dispatch({type:REMOVE, payload:{id}})
+    }
+    
+    return <GlobalContextAPI.Provider value={{...state, ClearAllCardItems, RemoveSingleCardItem}}>
         {children}
     </GlobalContextAPI.Provider>
 }
