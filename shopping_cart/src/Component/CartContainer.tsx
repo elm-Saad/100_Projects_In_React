@@ -4,12 +4,12 @@ import { useContextAPI } from '../GlobalContext'
 const CartContainer = () => {
 
 
-  const {cart, ClearAllCardItems} = useContextAPI()
+  const {cart, ClearAllCardItems,TotalPrice} = useContextAPI()
   
   const cartItems = Array.from(cart.entries())
   if (cartItems.length === 0) {
     return (
-      <section className='h-screen flex flex-col items-center justify-center w-full'>
+      <section className='h-custom flex flex-col items-center justify-center w-full'>
         <header className='text-center mb-44'>
           <h2 className='text-purple-700 font-semibold text-lg'>your bag</h2>
           <h4 className='text-gray-700 font-semibold '>is currently empty</h4>
@@ -33,7 +33,7 @@ const CartContainer = () => {
           <div>
             <h5 className=' mt-1 flex justify-between'>
               <span className='font-semibold text-gray-600 text-xl'>total</span>
-              <span className='bg-purple-700 px-2 text-white font-semibold text-md rounded-md'>$10</span>
+              <span className='bg-purple-700 px-2 text-white font-semibold text-md rounded-md'>${TotalPrice}</span>
             </h5>
           </div>
           <button

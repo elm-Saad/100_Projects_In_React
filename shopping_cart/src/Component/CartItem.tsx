@@ -3,7 +3,7 @@ import { useContextAPI } from '../GlobalContext'
 
 const CartItem = ({ ...rest}: any) => {
 
-  const {RemoveSingleCardItem} = useContextAPI()
+  const {RemoveSingleCardItem, AddCardItem, RemoveCardItem} = useContextAPI()
   const {id,img,title,price,amount} = rest[1]
   return (
     <article className='items-stretch bg-white shadow rounded-md mt-4 flex justify-between px-4 md:px-8'>
@@ -21,11 +21,11 @@ const CartItem = ({ ...rest}: any) => {
       </div>
       <div className='flex items-center'>
         <div className='flex flex-col items-center '>
-          <button className='text-purple-600' onClick={() => console.log('increase')}>
+          <button className='text-purple-600' onClick={() => AddCardItem(id)}>
             <FaChevronUp className='amount-icon' />
           </button>
           <span className='text-gray-600 font-semibold'>{amount}</span>
-          <button className='text-purple-600' onClick={() => console.log('decrease')}>
+          <button className='text-purple-600' onClick={() => RemoveCardItem(id)}>
             <FaChevronDown className='amount-icon' />
           </button>
         </div>

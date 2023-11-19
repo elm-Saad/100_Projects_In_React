@@ -13,4 +13,8 @@ export interface ContextValueType {
     cart: []
     ClearAllCardItems: ()=> void
     RemoveSingleCardItem: (id: string) => void
+    AddCardItem: (id: string) => void
+    RemoveCardItem: (id: string) => void
+    TotalAmount: number
+    TotalPrice: number
 }
