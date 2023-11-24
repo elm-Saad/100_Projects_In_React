@@ -2,3 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/*setting the theme automatically base on the user preference from his browser using CSS*/
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --textColor: var(--dark-mode-text-color);
+    --backgroundColor: var(--dark-mode-bg-color);
+  }
+} */
+body{
+    background-color: white;
+    color: #333;
+    transition: color 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+}
+.dark-mode{
+    background-color: #333;
+    color: white;
+}

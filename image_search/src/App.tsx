@@ -1,10 +1,15 @@
+import Gallery from "./Component/Gallery"
+import SearchForm from "./Component/SearchForm"
+import ThemeToggle from "./Component/ThemeToggle"
 
 
 
 const App =()=>{
-  return <main className="min-h-screen w-full bg-white grid place-items-center">
-    <section className="w-full max-w-[2200px]">
-      hi new app
+  return <main className="min-h-screen w-full flex justify-center">
+    <section className="w-full max-w-[2200px] flex flex-col items-center">
+      <ThemeToggle />
+      <SearchForm />
+      <Gallery />
     </section>
   </main>
 }
