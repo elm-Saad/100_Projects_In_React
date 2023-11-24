@@ -1,21 +1,26 @@
-# Navbar
+# Image searcher
 
-// what to learn
+## What to learn
 
-=>  useRef hook
-=> getBoundingClientRect
-=> event.ClientY
-=> event.ClientX
+* Using React Query
+* Using the React Query Dev Tools
+* ENV Variables in Vite
+
+## Install && Usage
+
+```bash
+$ npm i @tanstack/react-query-devtools
 
 
-// Here's a snippet of the code:
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <GlobalContext>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools initialIsOpen={true} />
+      </QueryClientProvider>
+    </GlobalContext>
+  </React.StrictMode>,
+)
 
 
-* using the e.ClientX e.ClientY getBoundingClientRect() 
-* to control the show/hide of the Submenu => hide on left right button when out from the submenu 
-* // 1/ set a function to handle the logic onMouseLeave
-* // 2/ get the hole section by Ref 
-* // 3/ get the left right bottom position relative to the viewport. using the Ref and the 
-getBoundingClientRect() 
-* // 4/ get the e.ClientX and e.ClientY 
-* // 5/ if left > e.ClientX or right < e.clientX or bottom < clientY set the nav to null 

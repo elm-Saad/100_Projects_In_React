@@ -2,9 +2,10 @@
 
 
 export interface ContextValueType {
-    name: string,
     ToggleDarkTheme:  () => void,
-    DarkTheme: boolean
+    DarkTheme: boolean,
+    searchValue: string,
+    setSearchValue: React.Dispatch<React.SetStateAction<string>>
 }
 
 export interface TitleType {

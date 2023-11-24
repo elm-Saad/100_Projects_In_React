@@ -1,5 +1,6 @@
 import { FormEvent } from 'react'
 import Title from './Title'
+import { useContextAPI } from '../GlobalContextApi'
 
 
 const SearchForm = ()=>{
@@ -11,13 +12,16 @@ const SearchForm = ()=>{
     //     setInputValue(e.target.value)
     // }
 
+    const {setSearchValue} = useContextAPI()
+
     const handleSubmit = (e: FormEvent) =>{
         e.preventDefault()
         const formElements = (e.target as HTMLFormElement).elements
         // Check if the form element with name 'text' exists
         if ('text' in formElements) {
             const searchValue = (formElements['text'] as HTMLInputElement).value
-            console.log(searchValue)
+            setSearchValue(searchValue)
+
         }
     }
     return <section className='p-2 w-full flex flex-col items-center'>

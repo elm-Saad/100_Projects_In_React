@@ -1,4 +1,4 @@
-import { createContext, useContext ,useState} from "react"
+import { createContext, useContext ,useState, useEffect} from "react"
 import { ContextValueType } from "./interfaces"
 
 
@@ -6,22 +6,37 @@ import { ContextValueType } from "./interfaces"
 
 const GlobalContextAPI = createContext<ContextValueType|undefined>(undefined)
 
+// get the prefers Theme for the user
+const getInitialDarkMode = () => {
+    const prefersDarkMode = window.matchMedia(
+      '(prefers-color-scheme:dark)'
+    ).matches
+    const isDarkTheme: boolean = localStorage.getItem('darkTheme') === 'true'
+    return isDarkTheme || prefersDarkMode
+}
 
 export const GlobalContext = ({children}: any) =>{
     
-    const [DarkTheme,setDarkTheme] = useState<boolean>(false)
-
+    const [DarkTheme,setDarkTheme] = useState<boolean>(getInitialDarkMode())
+    const [searchValue,setSearchValue] = useState<string>('sky')
 
     const ToggleDarkTheme = () =>{
         const newTheme = !DarkTheme
         setDarkTheme(newTheme)
+        localStorage.setItem('darkTheme',newTheme.toString())
         document.body.classList.toggle('dark-mode',newTheme)
     }
 
+    //initial state of the Theme 
+    useEffect(()=>{
+        document.body.classList.toggle('dark-mode',DarkTheme)
+    },[])
+
     const contextValue: ContextValueType = {
-        name:'saad',
         ToggleDarkTheme,
-        DarkTheme
+        DarkTheme,
+        searchValue,
+        setSearchValue
     }
     return <GlobalContextAPI.Provider value={contextValue}>
         {children}
