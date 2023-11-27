@@ -4,7 +4,10 @@ import Navbar from '../Component/Navbar'
 const HomeLayout = () =>{
     return <section>
         <Navbar/>
-        <Outlet />
+        <article className='page'>
+            <Outlet />
+        </article>
+        
     </section>
 }
 

@@ -53,27 +53,47 @@ import {
   Newsletter,
   Cocktail,
 } from './Pages'
+// import loader from ech page 
 
+/**
+ * #### Loader
+ * Each route can define a "loader" function to provide data to the route element before it renders.
+ * 
+ * // create on each page a loader Exported function that have return then 
+ * // in the loader of the page as route call the loader created 
+ * // to access it use new instance from useLoaderData() 
+ */
+import {loader as landingLoader} from './Pages/Landing'
+import SinglePageError from './Pages/SinglePageError'
  const routes = createBrowserRouter([
   {
     path:'/',
     element:<HomeLayout />,
+    errorElement:<Error />,
     children: [
       {
         index:true,
-        element: <Landing />
+        loader: landingLoader,
+        element: <Landing />,
+        errorElement: <SinglePageError />
       },
       {
         path:'cocktail',
-        element: <Cocktail />
+        element: <Cocktail />,
+        errorElement: <SinglePageError />
+
       },
       {
         path:'newsletter',
-        element: <Newsletter />
+        element: <Newsletter />,
+        errorElement: <SinglePageError />
+
       },
       {
         path:'about',
-        element: <About />
+        element: <About />,
+        errorElement: <SinglePageError />
+
       }
     ]
   }
