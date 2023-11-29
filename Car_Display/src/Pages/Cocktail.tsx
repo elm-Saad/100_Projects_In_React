@@ -1,11 +1,23 @@
 import { useLoaderData, Link, Navigate } from "react-router-dom"
 import axios from 'axios'
 import Wrapper from '../assets/wrappers/CocktailPage';
+import { useQuery } from '@tanstack/react-query';
+
 
 // set Up the Loader to prefetch before the page Load
 const singleCocktailUrl =
   'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i='
 
+
+  const singleCocktailQuery = (id) => {
+    return {
+      queryKey: ['cocktail', id],
+      queryFn: async () => {
+        const { data } = await axios.get(`${singleCocktailUrl}${id}`);
+        return data;
+      },
+    };
+  };
 /**
  * 
  * the  path:'cocktail/:id',
@@ -13,15 +25,24 @@ const singleCocktailUrl =
         
         alow the loader to right away access the :id through out the params
  */
-export const loader = async ({ params }) => {
-  const { id } = params
-  const { data } = await axios.get(`${singleCocktailUrl}${id}`)
-  return { id, data }
-}
+// export const loader = (queryclient)=>async ({ params }) => {
+//   const { id } = params
+//   const { data } = await axios.get(`${singleCocktailUrl}${id}`)
+//   return { id, data }
+// }
+
+export const loader =
+  (queryClient) =>
+  async ({ params }) => {
+    const { id } = params;
+    await queryClient.ensureQueryData(singleCocktailQuery(id));
+    return { id };
+  };
 
 const Cocktail = () => {
-  const { id, data } = useLoaderData()
 
+  const { id } = useLoaderData();
+  const { data } = useQuery(singleCocktailQuery(id));
   // no data under an :id (!data) => the Navigate auto return to the provided link 
   if(!data) return <Navigate to={'/'} />
   const singleDrink = data.drinks[0]

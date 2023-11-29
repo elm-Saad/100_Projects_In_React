@@ -71,6 +71,17 @@ import {loader as singleCocktailLoader} from './Pages/Cocktail'
 import { action as newsletterAction } from './pages/Newsletter';
 
 import SinglePageError from './Pages/SinglePageError'
+
+
+const queryclient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      //how long the query is going to be valid
+      staleTime: 1000 * 60 * 5, //5 min
+    },
+  },
+})
+
  const routes = createBrowserRouter([
   {
     path:'/',
@@ -79,13 +90,13 @@ import SinglePageError from './Pages/SinglePageError'
     children: [
       {
         index:true,
-        loader: landingLoader,
+        loader: landingLoader(queryclient),// to access ensureQueryData in the loader
         element: <Landing />,
         errorElement: <SinglePageError />
       },
       {
         path:'cocktail/:id',
-        loader:singleCocktailLoader,
+        loader:singleCocktailLoader(queryclient),//to access ensureQueryData in the loader
         element: <Cocktail />,
         errorElement: <SinglePageError />
 
@@ -105,17 +116,6 @@ import SinglePageError from './Pages/SinglePageError'
     ]
   }
  ])
-
-
-const queryclient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      //how long the query is going to be valid
-      staleTime: 1000 * 60 * 5, //5 min
-    },
-  },
-})
-
 
 const App =()=>{
   return <main className="min-h-screen w-full flex justify-center">

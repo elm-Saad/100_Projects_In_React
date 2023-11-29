@@ -21,14 +21,14 @@ const searchCocktailsQuery = (searchTerm) => {
 };
 
 // create a loader function
-export const loader = async ({request}) => {
+export const loader = (queryclient) => async ({request}) => {
     // here whene submitting the form the url will change providing a type ?search=...
     // u can get the url and fetch base on the value of the search value provided
     const url = new URL(request.url);
     const searchTerm = url.searchParams.get('search') || '';
-    // const res = await axios.get(cocktailSearchUrl + searchTerm)
-    
-    return {searchTerm}
+    await queryclient.ensureQueryData(searchCocktailsQuery(searchTerm));
+    // const response = await axios.get(`${cocktailSearchUrl}${searchTerm}`);
+    return { searchTerm };
 }
 
 
