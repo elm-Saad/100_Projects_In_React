@@ -64,6 +64,7 @@ import {
  * // to access it use new instance from useLoaderData() 
  */
 import {loader as landingLoader} from './Pages/Landing'
+import {loader as singleCocktailLoader} from './Pages/Cocktail'
 import SinglePageError from './Pages/SinglePageError'
  const routes = createBrowserRouter([
   {
@@ -78,7 +79,8 @@ import SinglePageError from './Pages/SinglePageError'
         errorElement: <SinglePageError />
       },
       {
-        path:'cocktail',
+        path:'cocktail/:id',
+        loader:singleCocktailLoader,
         element: <Cocktail />,
         errorElement: <SinglePageError />
 

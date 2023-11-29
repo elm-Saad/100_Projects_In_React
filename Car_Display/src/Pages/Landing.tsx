@@ -1,25 +1,28 @@
 
 // using loader coming from react-router-dom to prefetch the data before even the rout get called
-import { useEffect , useState } from 'react'
 import {useLoaderData} from 'react-router-dom'
 import axios from 'axios'
+import CocktailList from '../Component/CocktailList'
 
 const cocktailSearchUrl ='https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 
 
 // create a loader function
 export const loader = async () => {
-    const res = await axios.get(cocktailSearchUrl)
-    console.log(res)
-    return 'something'
+    const searchParams = ''
+    const res = await axios.get(cocktailSearchUrl + searchParams)
+    
+    return {drinks:res.data.drinks, searchParams}
 }
 
 
 const Landing = ()=>{
 
-    const data = useLoaderData()
-    console.log(data)
-    return <p>Landing</p>
+    const {drinks ,searchParams} = useLoaderData()
+   
+    return <section>
+        <CocktailList drinks={drinks} />
+    </section>
 }
 
 export default Landing
