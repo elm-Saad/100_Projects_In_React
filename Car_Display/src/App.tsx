@@ -53,6 +53,7 @@ import {
   Newsletter,
   Cocktail,
 } from './Pages'
+import { QueryClient,QueryClientProvider } from '@tanstack/react-query'
 // import loader from ech page 
 
 /**
@@ -65,6 +66,10 @@ import {
  */
 import {loader as landingLoader} from './Pages/Landing'
 import {loader as singleCocktailLoader} from './Pages/Cocktail'
+
+//action 
+import { action as newsletterAction } from './pages/Newsletter';
+
 import SinglePageError from './Pages/SinglePageError'
  const routes = createBrowserRouter([
   {
@@ -88,7 +93,7 @@ import SinglePageError from './Pages/SinglePageError'
       {
         path:'newsletter',
         element: <Newsletter />,
-        errorElement: <SinglePageError />
+        action: newsletterAction,
 
       },
       {
@@ -100,10 +105,24 @@ import SinglePageError from './Pages/SinglePageError'
     ]
   }
  ])
+
+
+const queryclient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      //how long the query is going to be valid
+      staleTime: 1000 * 60 * 5, //5 min
+    },
+  },
+})
+
+
 const App =()=>{
   return <main className="min-h-screen w-full flex justify-center">
     <section className="w-full max-w-[2200px] flex flex-col items-center">
-      <RouterProvider router={routes} />
+      <QueryClientProvider client={queryclient}>
+        <RouterProvider router={routes} />
+      </QueryClientProvider>
     </section>
   </main>
 }
