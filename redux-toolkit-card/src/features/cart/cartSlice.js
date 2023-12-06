@@ -93,7 +93,7 @@ const cartSlice = createSlice({
           // u can display  the error from the action here when using axios
           // console.log(action);
           state.isLoading = false
-        });
+        })
     },
 })
 
