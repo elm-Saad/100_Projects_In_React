@@ -61,7 +61,7 @@ const cartSlice = createSlice({
 
     },
 
-    //
+    //lifecycle actions
     extraReducers: {
       [getCartItems.pending]: (state) => {
         state.isLoading = true;
