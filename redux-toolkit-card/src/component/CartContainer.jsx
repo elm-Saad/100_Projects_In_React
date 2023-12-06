@@ -3,7 +3,9 @@ import CartItem from './CartItem';
 
 
 //get the clear item from the card slice reducer
-import { clearCart } from '../features/cart/cartSlice';
+
+import { openModal } from '../features/Modal/modalSlice';
+
 import {useDispatch, useSelector } from 'react-redux';
 
 const CartContainer = () => {
@@ -46,7 +48,7 @@ const CartContainer = () => {
         <button 
           className='btn clear-btn'
           onClick={() => {
-            dispatch(clearCart());
+            dispatch(openModal());
           }}
         >
           clear cart</button>
