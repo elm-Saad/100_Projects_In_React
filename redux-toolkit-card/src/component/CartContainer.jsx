@@ -1,10 +1,14 @@
 import React from 'react';
 import CartItem from './CartItem';
+
+
+//get the clear item from the card slice reducer
+import { clearCart } from '../features/cart/cartSlice';
 import {useDispatch, useSelector } from 'react-redux';
 
 const CartContainer = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const { cartItems, total, amount } = useSelector((store) => store.cart);
 

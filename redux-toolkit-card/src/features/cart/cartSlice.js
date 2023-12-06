@@ -18,11 +18,13 @@ const cartSlice = createSlice({
     // pass the reducer in redux
     reducers: {
         clearCart: (state) => {
-          state.cartItems = [];
+          state.cartItems = []
         },
-      },
+    },
 })
 
-export const { clearCart } = cartSlice.actions;
+
+// action set by default by immer library behind 
+export const { clearCart } = cartSlice.actions
 
 export default cartSlice.reducer
