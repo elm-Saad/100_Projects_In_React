@@ -1,7 +1,11 @@
 
+import { Outlet } from "react-router-dom"
 
 const HomeLayout = ()=>{
-    return <p>HomeLayout</p>
+    return <>
+    <span>UI</span><br/>
+    <Outlet/>
+    </>
 }
 
 

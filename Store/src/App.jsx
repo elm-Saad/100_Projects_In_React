@@ -5,22 +5,57 @@ import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 const router = createBrowserRouter([
   {
     path:'/',
-    element:<p>hi</p>
+    element:<HomeLayout />,
+    errorElement:<Error />,
+    children:[
+      {
+        index:true,
+        element:<Landing />
+      },
+      {
+        path: 'products',
+        element: <Products />,
+      },
+      {
+        path:'products/:id',
+        element:<SingleProduct />
+      },
+      {
+        path:'about',
+        element:<About/>
+      },
+      {
+        path:'cart',
+        element:<Cart/>
+      },
+      {
+        path: 'checkout',
+        element: <Checkout />,
+      },
+      {
+        path: 'orders',
+        element: <Orders />,
+      },
+
+    ]
   },
   {
-    path:'/hi',
-    element:<p>hi hi</p>
+    path:'/login',
+    element:<Login />,
+    errorElement:<Error />
   },
-  //...
+  {
+    path:'/register',
+    element:<Register />,
+    errorElement:<Error />
+  },
 ])
 
 
 function App() {
 
   return (
-    <RouterProvider router={router}>
-
-    </RouterProvider>
+    <RouterProvider router={router}/>
   )
 }
 
