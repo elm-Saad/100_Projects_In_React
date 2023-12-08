@@ -1,7 +1,10 @@
+import { Hero } from "../component"
 
 
 const Landing = ()=>{
-    return <p>Landing</p>
+    return <>
+        <Hero />
+    </>
 }
 
 
