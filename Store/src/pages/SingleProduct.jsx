@@ -2,7 +2,8 @@ import { useLoaderData } from 'react-router-dom'
 import { formatPrice, customFetch,generateAmountOptions} from '../utils'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-
+import { useDispatch } from 'react-redux'
+import { addItem } from '../features/cart/cartSlice'
 
 
 
@@ -19,8 +20,27 @@ const SingleProduct = ()=>{
     const [amount, setAmount] = useState(1)
 
 
+    const dispatch = useDispatch()
+
+    //all data about single product
+    const cartProduct = {
+      // make the differentColor products uniq
+      cartID: product.id + productColor,
+      productID: product.id,
+      image,
+      title,
+      price,
+      amount,
+      productColor,
+      company,
+    }
+
+    const addToCart = () => {
+      dispatch(addItem({ product: cartProduct }))
+    }
+
     const handleAmount = (e) => {
-        setAmount(parseInt(e.target.value));
+        setAmount(parseInt(e.target.value))
     }
 
     return <section>
@@ -93,7 +113,7 @@ const SingleProduct = ()=>{
         <div className='mt-10 '>
           <button
             className='btn btn-secondary btn-md'
-            onClick={() => console.log('add to bag')}
+            onClick={addToCart}
           >
             Add to bag
           </button>
