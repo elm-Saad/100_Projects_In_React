@@ -1,17 +1,19 @@
-import { useSelector } from 'react-redux'
 import { BsCart3, BsMoonFill,BsSunFill} from 'react-icons/bs'
 import { FaBarsStaggered } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import NavLinks from './NavLinks'
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 
-const themes = {
-  light:'light',
-  dark:'dark'
-}
-const handleLocalStorage = () => {
- return localStorage.getItem('theme') || themes.light
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTheme } from '../features/user/userSlice';
+
+// const themes = {
+//   light:'light',
+//   dark:'dark'
+// }
+// const handleLocalStorage = () => {
+//  return localStorage.getItem('theme') || themes.light
+// }
              
 
 
@@ -20,18 +22,29 @@ const Navbar = ()=>{
   // get the items in the cart number
   const numItemsInCart = useSelector((state) => state.cartState.numItemsInCart)
 
-  const [Theme,setTheme] = useState(handleLocalStorage())
+  /**
+   * way setting the theme on the reducer and not here well 
+   * the bug is that the navbar contain in the homeLayout witch dose not have login / logout pages 
+   * mens the theme wil not get changed in theme 
+   * but using localStorage in the reducer make the theme access on every page 
+   */
+  // const [Theme,setTheme] = useState(handleLocalStorage())
 
-  const ChangeTheme = () =>{
-    const {light,dark} = themes
-    const newTheme = (Theme === light) ? dark : light
-    setTheme(newTheme)
-  }
+  // const ChangeTheme = () =>{
+  //   const {light,dark} = themes
+  //   const newTheme = (Theme === light) ? dark : light
+  //   setTheme(newTheme)
+  // }
 
-  useEffect(()=>{
-    document.documentElement.setAttribute('data-theme', Theme)
-    localStorage.setItem('theme',Theme)
-  },[Theme])
+  // useEffect(()=>{
+  //   document.documentElement.setAttribute('data-theme', Theme)
+  //   localStorage.setItem('theme',Theme)
+  // },[Theme])
+
+    const dispatch = useDispatch()
+    const ChangeTheme = () => {
+      dispatch(toggleTheme())
+    }
 
 
   return <nav className='bg-base-200'>
