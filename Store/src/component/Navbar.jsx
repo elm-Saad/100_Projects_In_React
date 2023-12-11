@@ -22,6 +22,10 @@ const Navbar = ()=>{
   // get the items in the cart number
   const numItemsInCart = useSelector((state) => state.cartState.numItemsInCart)
 
+  const theme = useSelector((state) => state.userState.theme);
+
+  const isDarkTheme = (theme === 'dark');
+
   /**
    * way setting the theme on the reducer and not here well 
    * the bug is that the navbar contain in the homeLayout witch dose not have login / logout pages 
@@ -79,7 +83,7 @@ const Navbar = ()=>{
         {/* THEME ICONS */}
         <label className='swap swap-rotate '>
           {/* this hidden checkbox controls the state */}
-          <input type='checkbox' onChange={ChangeTheme} />
+          <input type='checkbox' onChange={ChangeTheme} defaultChecked={!isDarkTheme}/>
 
           {/* sun icon */}
           <BsSunFill className='swap-on h-4 w-4' />
