@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 
 
 // Access the RTX store in the action (Video course 496)
-export const action = (store) => async () =>{
+export const action = (store) => async ({request}) =>{
   const formData = await request.formData()
   const data = Object.fromEntries(formData)
   try {
