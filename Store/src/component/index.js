@@ -25,3 +25,7 @@ export { default as CartItem } from './CartItem'
 
 
 export { default as CheckoutForm } from './CheckoutForm'
+
+export { default as OrdersList } from './OrdersList'
+
+export { default as ProductsPaginationContainer } from './ProductsPaginationContainer'
