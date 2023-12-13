@@ -36,13 +36,15 @@ export const action =
       toast.success('order placed successfully')
       return redirect('/orders')
     } catch (error) {
-      console.log(error)
-      const errorMessage =
-        error?.response?.data?.error?.message ||
-        'there was an error placing your order'
 
-      toast.error(errorMessage)
-      return null
+        const errorMessage =
+        error?.response?.data?.error?.message ||
+        'there was an error placing your order';
+        toast.error(errorMessage)
+        // if the token is false or replaced and the user is login (video 505)
+        if (error?.response?.status === 401 || 403) return redirect('/login');
+    
+        return null
     }
   }
 const CheckoutForm = () => {
