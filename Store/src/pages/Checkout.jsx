@@ -13,7 +13,10 @@ export const loader = (store) => async () => {
     return redirect('/login')
   }
   return null
-};
+}
+
+
+
 const Checkout = () => {
   const cartTotal = useSelector((state) => state.cartState.cartTotal);
   if (cartTotal.length === 0) {
