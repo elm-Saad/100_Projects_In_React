@@ -12,8 +12,9 @@ import { loader as ProductLoader } from './pages/Products'
 //actions
 
 import { action as registerAction } from './pages/Register'
+import { action as loginAction } from './pages/Login'
 
-
+import { store } from './store'
 
 const router = createBrowserRouter([
   {
@@ -61,7 +62,8 @@ const router = createBrowserRouter([
   {
     path:'/login',
     element:<Login />,
-    errorElement:<Error />
+    errorElement:<Error />,
+    action:loginAction(store)// Access the RTX store in the action (Video course 496)
   },
   {
     path:'/register',

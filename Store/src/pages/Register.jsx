@@ -11,7 +11,7 @@ export const action = async ({ request }) => {
   try {
     const response = await customFetch.post('/auth/local/register', data)
     toast.success('account created successfully')
-    // redirect used only for action and loaders but useNavigate its a hook could be used anywhere
+    // redirect (is a function that returns a response object) used only for action and loaders but useNavigate its a hook could be used anywhere and return a function
     return redirect('/login')
   } catch (error) {
     const errorMessage =

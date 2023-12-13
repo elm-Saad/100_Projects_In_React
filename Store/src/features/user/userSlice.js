@@ -22,7 +22,9 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action) => {
-      console.log('login')
+      // all the login user logic is here and the data needed coming from the login page action 
+      
+      console.log(action.payload)
     },
     logoutUser: (state) => {
       state.user = null

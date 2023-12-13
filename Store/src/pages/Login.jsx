@@ -1,6 +1,34 @@
-import { FormInput,SubmitBtn } from "../component"
-import { Form, Link } from "react-router-dom"
+import { FormInput, SubmitBtn } from '../component'
+import { Form, Link, redirect, useNavigate } from 'react-router-dom';
+import { customFetch } from '../utils';
+import { toast } from 'react-toastify';
+import { loginUser } from '../features/user/userSlice';
+import { useDispatch } from 'react-redux';
 
+
+// Access the RTX store in the action (Video course 496)
+export const action = (store) => async () =>{
+  const formData = await request.formData()
+  const data = Object.fromEntries(formData)
+  try {
+    const response = await customFetch.post('/auth/local', data)
+
+    //send the data to the login user in the userSlice to be handled 
+    //this way we need use RTX store in the action
+    store.dispatch(loginUser(response.data))
+
+
+    toast.success('logged in successfully')
+    return redirect('/')
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.error?.message ||
+      'please double check your credentials'
+
+    toast.error(errorMessage)
+    return null
+  }
+}
 
 const Login = () => {
     return (
