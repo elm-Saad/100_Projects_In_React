@@ -1,9 +1,9 @@
-
+import { Landing } from "./pages"
 
 function App() {
 
   return (
-    <h1>hi new project jobster</h1>
+    <Landing />
   )
 }
 
