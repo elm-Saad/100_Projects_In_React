@@ -10,12 +10,13 @@ const initialState = {
 
 export const RegisterUser = createAsyncThunk(
     'user_registerUser',
+    //return a promise that well get handled in the extra reducer
     async(user,thunkAPI)=>{
         try {
-            const res = await customFetch.post('auth/testingRegister',user)
-            console.log(res)
+            const res = await customFetch.post('auth/register',user)
+            return res.data
         } catch (error) {
-            toast(error.response.data.msg)
+            return thunkAPI.rejectWithValue(error.response.data.msg)
         }
     }
 )
@@ -27,7 +28,24 @@ export const LoginUser = createAsyncThunk(
 )
 const userSlice = createSlice({
     name:'user',
-    initialState
+    initialState,
+    //lifecycle actions new syntax 
+    extraReducers: (builder) => {
+        builder
+          .addCase(RegisterUser.pending, (state) => {
+            state.isLoading = true
+          })
+          .addCase(RegisterUser.fulfilled, (state, action) => {
+            const { user } = action.payload            
+            state.isLoading = false
+            state.user = user
+            toast.success(`hello there ${user.name}`)
+          })
+          .addCase(RegisterUser.rejected, (state, action) => {
+            state.isLoading = false
+            toast.error(action.payload)
+          })
+      },
 })
 
 
