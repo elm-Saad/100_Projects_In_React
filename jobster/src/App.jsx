@@ -1,5 +1,7 @@
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { Landing,Error,Register,Dashboard } from "./pages"
-import {createBrowserRouter,RouterProvider}  from 'react-router-dom'
+import { createBrowserRouter,RouterProvider }  from 'react-router-dom'
 
 
 const routes = createBrowserRouter([
@@ -27,7 +29,10 @@ const routes = createBrowserRouter([
 function App() {
 
   return (
+   <>
     <RouterProvider router={routes} />
+    <ToastContainer />
+   </>
   )
 }
 
