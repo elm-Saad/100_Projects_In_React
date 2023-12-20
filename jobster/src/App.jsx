@@ -1,6 +1,6 @@
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Landing,Error,Register } from "./pages"
+import { Landing,Error,Register, ProtectedRoute } from "./pages"
 import { createBrowserRouter,RouterProvider }  from 'react-router-dom'
 
 //Dashboard
@@ -15,7 +15,9 @@ import {
 const routes = createBrowserRouter([
   {
     path:'/',
-    element:<SharedLayout />,
+    element:<ProtectedRoute>
+      <SharedLayout />
+    </ProtectedRoute>,
     errorElement:<Error />,
     children: [
       {

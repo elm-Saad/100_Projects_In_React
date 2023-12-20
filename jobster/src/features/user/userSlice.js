@@ -6,6 +6,7 @@ import { addToLocalStorage, getFromLocalStorage,removeFromLocalStorage } from '.
 
 const initialState = {
     isLoading:false,
+    isSidebarOpen:false,
     user:getFromLocalStorage()
 }
 
@@ -37,8 +38,12 @@ const userSlice = createSlice({
     initialState,
     reducers:{
       toggleSidebar : (state)=>{
-        console.log('hi')
-        return null
+        state.isSidebarOpen=!state.isSidebarOpen
+      },
+      logoutUser : (state)=>{
+        state.user=null
+        state.isSidebarOpen=false
+        removeFromLocalStorage()
       }
     },
     //lifecycle actions new syntax 
@@ -80,6 +85,6 @@ const userSlice = createSlice({
 })
 
 
-export const {toggleSidebar} = userSlice.actions
+export const {logoutUser,toggleSidebar} = userSlice.actions
 
 export default userSlice.reducer
