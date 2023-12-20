@@ -35,6 +35,12 @@ export const LoginUser = createAsyncThunk(
 const userSlice = createSlice({
     name:'user',
     initialState,
+    reducers:{
+      toggleSidebar : (state)=>{
+        console.log('hi')
+        return null
+      }
+    },
     //lifecycle actions new syntax 
     extraReducers: (builder) => {
         builder
@@ -73,5 +79,7 @@ const userSlice = createSlice({
       },
 })
 
+
+export const {toggleSidebar} = userSlice.actions
 
 export default userSlice.reducer
