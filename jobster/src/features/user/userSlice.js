@@ -5,9 +5,9 @@ import customFetch from '../../utils/axios'
 import { addToLocalStorage, getFromLocalStorage,removeFromLocalStorage } from '../../utils/localStorage'
 
 const initialState = {
-    isLoading:false,
-    isSidebarOpen:false,
-    user:getFromLocalStorage()
+  isLoading:false,
+  isSidebarOpen:false,
+  user:getFromLocalStorage()
 }
 
 
@@ -51,6 +51,12 @@ export const UpdateUser = createAsyncThunk(
       })
       return resp.data
     } catch (error) {  
+      // 570 video handle old token /expired token
+      if (error.response.status === 401) {
+        thunkAPI.dispatch(logoutUser())
+        return thunkAPI.rejectWithValue('Unauthorized! Logging Out...')
+      }
+
       return thunkAPI.rejectWithValue(error.response.data.msg)
     }
   }
