@@ -10,6 +10,8 @@ const initialState = {
     user:getFromLocalStorage()
 }
 
+
+
 export const RegisterUser = createAsyncThunk(
     'user_registerUser',
     //return a promise that well get handled in the extra reducer
@@ -22,6 +24,7 @@ export const RegisterUser = createAsyncThunk(
         }
     }
 )
+
 export const LoginUser = createAsyncThunk(
     'user_LoginUser',
     async(user,thunkAPI)=>{
@@ -33,6 +36,29 @@ export const LoginUser = createAsyncThunk(
         }
     }
 )
+
+export const UpdateUser = createAsyncThunk(
+  'user_updateUser',
+  async(user,thunkAPI)=>{
+    try {
+      //get the token and pass is to headers as this for uniq identifier
+      const resp = await customFetch.patch('/auth/updateUser', user, {
+        headers:{
+          //.....user/**name of store */.user/**name of prop */....
+          Authorization:`Bearer ${thunkAPI.getState().user.user.token}`,
+        }
+
+      })
+      return resp.data
+    } catch (error) {  
+      return thunkAPI.rejectWithValue(error.response.data.msg)
+    }
+  }
+)
+
+
+
+
 const userSlice = createSlice({
     name:'user',
     initialState,
@@ -78,6 +104,22 @@ const userSlice = createSlice({
             // get the token from here user.token
           })
           .addCase(LoginUser.rejected, (state, action) => {
+            state.isLoading = false
+            toast.error(action.payload)
+          })
+          .addCase(UpdateUser.pending, (state) => {
+            state.isLoading = true
+          })
+          .addCase(UpdateUser.fulfilled, (state, action) => {
+            const { user } = action.payload   
+            //add user to local storage
+            addToLocalStorage(user)         
+            state.isLoading = false
+            state.user = user
+            toast.success(`User Updated`)
+            // get the token from here user.token
+          })
+          .addCase(UpdateUser.rejected, (state, action) => {
             state.isLoading = false
             toast.error(action.payload)
           })
