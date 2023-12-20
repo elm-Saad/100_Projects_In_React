@@ -24,7 +24,7 @@ const SmallSidebar = () =>{
                 <Logo />
               </header>
               <div className='nav-links'>
-                <NavLinks toggle={toggle} />
+                <NavLinks toggleSidebar={toggle} />
               </div>
             </div>
           </div>
