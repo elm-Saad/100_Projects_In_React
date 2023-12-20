@@ -18,27 +18,30 @@ const Navbar = ()=>{
 
     return <Wrapper>
         <div className="nav-center">
-            <button 
-                className='toggle-btn'
-                onClick={toggle}
-            >
-                <FaAlignLeft />
-            </button>
-            <div>
-                <Logo />
-                <h3 className="logo-text">Dashboard</h3>
-            </div>
-            <div className='btn-container'>
-          <button
-            type='button'
-            className='btn'
-            onClick={() => setShowLogout(!ShowLogout)}
+          {/**Toggle icon */}
+          <button 
+              className='toggle-btn'
+              onClick={toggle}
           >
-            <FaUserCircle />
-            {user?.name}
-            <FaCaretDown />
+              <FaAlignLeft />
           </button>
-          <div className={`dropdown ${ShowLogout && 'show-dropdown'}`}>
+          {/** center Logo/text */}
+          <div>
+            <Logo />
+            <h3 className="logo-text">Dashboard</h3>
+          </div>
+          {/** user Account */}
+          <div className='btn-container'>
+            <button
+              type='button'
+              className='btn'
+              onClick={() => setShowLogout(!ShowLogout)}
+            >
+              <FaUserCircle />
+              {user?.name}
+              <FaCaretDown />
+            </button>
+            <div className={`dropdown ${ShowLogout && 'show-dropdown'}`}>
             <button
               type='button'
               className='dropdown-btn'
@@ -49,7 +52,7 @@ const Navbar = ()=>{
               logout
             </button>
           </div>
-        </div>
+          </div>
         </div>
     </Wrapper>
 }
