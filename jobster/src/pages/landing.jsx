@@ -14,7 +14,7 @@ const Landing = () => {
               job <span>tracking</span> app
             </h1>
             <p>some text</p>
-            <Link to='register' className='btn btn-hero'>
+            <Link to='/register' className='btn btn-hero'>
                 Login / Register
             </Link>
           </div>

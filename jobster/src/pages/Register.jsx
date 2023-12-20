@@ -4,7 +4,7 @@ import Wrapper from '../assets/wrappers/RegisterPage'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { LoginUser, RegisterUser } from '../features/user/userSlice'
-
+import { useNavigate } from 'react-router-dom'
 
 
  
@@ -19,6 +19,8 @@ const initialState = {
 
 
 const Register = () =>{
+    const navigate = useNavigate()
+
     const [values,setValues] = useState(initialState)
 
     const {user, isLoading} = useSelector((store)=>store.user)
@@ -44,6 +46,16 @@ const Register = () =>{
         }
         dispatch(RegisterUser({name,email,password}))
     }
+
+    // navigate to the / when user is login/register or already in LocalStorage
+    useEffect(() => {
+      if (user) {
+        //to see the welcome/hi message
+        setTimeout(() => {
+          navigate('/')
+        }, 2000)
+      }
+    }, [user])
 
     const ToggleMember = ()=>{
       setValues({...values,isMember:!values.isMember})
