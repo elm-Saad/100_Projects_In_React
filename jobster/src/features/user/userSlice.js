@@ -129,7 +129,7 @@ const userSlice = createSlice({
             state.isLoading = false
             toast.error(action.payload)
           })
-      },
+    },
 })
 
 
