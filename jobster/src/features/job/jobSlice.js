@@ -20,6 +20,24 @@ const initialState = {
 }
 
 
+/**
+ * Save The Auth Header
+ * in a  utils/authHeader.js 
+ * || or use Axios Interceptors Approach
+ */
+const authHeader = (thunkAPI) => {
+  return {
+    headers: {
+      authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+    },
+  }
+}
+/**
+ * import authHeader from '../../utils/authHeader'
+
+ * const resp = await customFetch.post('/____', ___, authHeader(thunkAPI))
+ */
+
 export const createJob = createAsyncThunk(
   'job_createJob',
   async (job, thunkAPI ) =>{
@@ -43,7 +61,42 @@ export const createJob = createAsyncThunk(
     }
   }
 )
-
+export const deleteJob = createAsyncThunk(
+  'job_deleteJob',
+    async(id,thunkAPI)=>{
+      try {
+        //Delete a data
+        const resp = await customFetch.delete(`/jobs/${id}`, {
+          headers: {
+            authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+          },
+        })
+        //Refetch the all the data
+        thunkAPI.dispatch(getAllJobs())
+        return resp.data.msg
+      } catch (error) {
+        thunkAPI.dispatch(hideLoading())
+        return thunkAPI.rejectWithValue(error.response.data.msg)
+      }
+    }
+)
+export const editJobu = createAsyncThunk(
+  'job_editJob',
+  async({jobId,job},thunkAPI)=>{
+    try {
+      const resp = await customFetch.patch(`/jobs/${jobId}`, job, {
+        headers: {
+          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+        },
+      })
+      /** */
+      thunkAPI.dispatch(clearValues())
+      return resp.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.msg)
+    }
+  }
+)
 
 
 const jobSlice = createSlice({
@@ -59,8 +112,10 @@ const jobSlice = createSlice({
           ...initialState,
           // save the location from the profile
           jobLocation: getFromLocalStorage()?.location || '',
-
         }
+      },
+      editJob: (state,{payload})=>{
+        return {...state,isEditing: true,...payload}
       }
     },
     extraReducers: (builder) => {
@@ -77,13 +132,32 @@ const jobSlice = createSlice({
           // error from 
           /**
            *return thunkAPI.rejectWithValue(error.response.data.msg);
-           */
+          */
+          toast.error(payload)
+        })
+        .addCase(deleteJob.fulfilled, (state, {payload}) => {
+          state.isLoading = false
+          toast.success(payload)
+        })
+        .addCase(deleteJob.rejected, (state, {payload}) => {
+          state.isLoading = false
+          toast.error(payload)
+        })
+        .addCase(editJobu.pending, (state) => {
+          state.isLoading = true
+        })
+        .addCase(editJobu.fulfilled, (state) => {
+          state.isLoading = false
+          toast.success('job updated')
+        })
+        .addCase(editJobu.rejected, (state, {payload}) => {
+          state.isLoading = false
           toast.error(payload)
         })
   },
 })
 
 
-export const {handleChange,clearValues} = jobSlice.actions
+export const {handleChange,clearValues,editJob} = jobSlice.actions
 
 export default jobSlice.reducer
