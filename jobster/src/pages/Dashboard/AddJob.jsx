@@ -2,7 +2,8 @@ import { FormRow, FormRowSelect } from '../../components'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
-import { handleChange,clearValues } from '../../features/job/jobSlice'
+import { handleChange,clearValues ,createJob} from '../../features/job/jobSlice'
+import { useEffect } from 'react'
 
 const AddJob  = () =>{
     const {
@@ -16,29 +17,39 @@ const AddJob  = () =>{
         statusOptions,
         isEditing,
         editJobId,
-      } = useSelector((store) => store.job)
+    } = useSelector((store) => store.job)
 
-      const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-      const handleSubmit = (e)=>{
-        e.preventDefault()
-        if(!position||!company||!jobLocation){
-            toast.error('please fill out all fields')
-            return 
-        }
-      }
+    // set user job as default job for application location
+
+    const {user}= useSelector((store)=> store.user)
+    
+    useEffect(()=>{
+        dispatch(handleChange({name:'jobLocation',value:user?.location || 'world'}))
+    },[])
+
+    const handleSubmit = (e)=>{
+    e.preventDefault()
+    if(!position||!company||!jobLocation){
+        toast.error('please fill out all fields')
+        return 
+    }
+    // Create job 
+    dispatch(createJob({ position, company, jobLocation, jobType, status }))
+    }
 
 
-      const handleJobInputs = (e)=>{
-        const name = e.target.name
-        const value = e.target.value
-        // handle change from the jobSlice (other option)
-        dispatch(handleChange({name,value}))
-      }
+    const handleJobInputs = (e)=>{
+    const name = e.target.name
+    const value = e.target.value
+    // handle change from the jobSlice (other option)
+    dispatch(handleChange({name,value}))
+    }
 
-      const clearJobs = ()=>{
+    const clearJobs = ()=>{
         dispatch(clearValues())
-      }
+    }
 
       
     return <Wrapper>
