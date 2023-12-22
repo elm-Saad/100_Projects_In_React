@@ -81,6 +81,7 @@ const userSlice = createSlice({
         if(payload){
           toast.success(payload)
         }
+        //back to the default state
       }
     },
     //lifecycle actions new syntax 
