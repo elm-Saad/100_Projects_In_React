@@ -9,11 +9,19 @@ const Stats  = () =>{
     const {isLoading,monthlyApplications} = useSelector((store)=>store.allJobs)
 
     const dispatch = useDispatch()
-    
+
+    useEffect(()=>{
+        dispatch(showStats())
+    },[])
+
+
     if(isLoading){
         return <Loading center />
     }
 
-    return <p>Stats </p>
+    return <>
+        <StatsContainer />
+        <ChartsContainer />
+    </>
 }
-export default Stats 
+export default Stats

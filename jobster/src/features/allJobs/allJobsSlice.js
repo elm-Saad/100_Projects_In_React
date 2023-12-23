@@ -45,18 +45,21 @@ export const getAllJobs = createAsyncThunk(
 )
 export const showStats = createAsyncThunk(
   'allJobs_showStats',
-  async(_,thunkAPI)=>{
+  async (_, thunkAPI) => {
     try {
-      const res = await customFetch.get('/jobs/stats')
+      const res = await customFetch.get('/jobs/stats',{
+        headers: {
+          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+        },
+      })
       return res.data
     } catch (error) {
+      // if 401
       return thunkAPI.rejectWithValue(error.response.data.msg)
     }
   }
 )
-/**
- * u can use extraReducer for showStats but we could as well call it from the state page 
- */
+
 
 
 
