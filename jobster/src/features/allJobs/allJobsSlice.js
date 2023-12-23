@@ -43,8 +43,20 @@ export const getAllJobs = createAsyncThunk(
     }
   }
 )
-
-
+export const showStats = createAsyncThunk(
+  'allJobs_showStats',
+  async(_,thunkAPI)=>{
+    try {
+      const res = await customFetch.get('/jobs/stats')
+      return res.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.msg)
+    }
+  }
+)
+/**
+ * u can use extraReducer for showStats but we could as well call it from the state page 
+ */
 
 
 
@@ -71,6 +83,17 @@ const allJobSlice = createSlice({
         state.jobs = payload.jobs
       })
       .addCase(getAllJobs.rejected, (state, {payload}) => {
+        state.isLoading = false
+        toast.error(payload)
+      })
+      .addCase(showStats.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(showStats.fulfilled, (state,{payload}) => {
+        state.isLoading = false
+        state.stats = payload.defaultStats
+      })
+      .addCase(showStats.rejected, (state, {payload}) => {
         state.isLoading = false
         toast.error(payload)
       })
