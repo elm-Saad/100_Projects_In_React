@@ -52,6 +52,8 @@ export const showStats = createAsyncThunk(
           authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
         },
       })
+      console.log(res.data)
+
       return res.data
     } catch (error) {
       // if 401
@@ -95,6 +97,7 @@ const allJobSlice = createSlice({
       .addCase(showStats.fulfilled, (state,{payload}) => {
         state.isLoading = false
         state.stats = payload.defaultStats
+        state.monthlyApplications = payload.monthlyApplications
       })
       .addCase(showStats.rejected, (state, {payload}) => {
         state.isLoading = false
