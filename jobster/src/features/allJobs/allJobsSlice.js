@@ -76,7 +76,13 @@ const allJobSlice = createSlice({
     hideLoading: (state) => {
       state.isLoading = false;
     },
+    handleChange:(state,{payload:{name,value}})=>{
+      state[name] = value
+    },
+    clearFilters:(state)=>{
+      return  {...state,...initialFiltersState}
 
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -86,6 +92,9 @@ const allJobSlice = createSlice({
       .addCase(getAllJobs.fulfilled, (state,{payload}) => {
         state.isLoading = false
         state.jobs = payload.jobs
+        // pagination
+        state.numOfPages = payload.numOfPages
+        state.totalJobs = payload.totalJobs
       })
       .addCase(getAllJobs.rejected, (state, {payload}) => {
         state.isLoading = false
@@ -106,6 +115,6 @@ const allJobSlice = createSlice({
 },
 })
 
-export const {showLoading,hideLoading} = allJobSlice.actions
+export const {showLoading,hideLoading,handleChange,clearFilters} = allJobSlice.actions
 
 export default allJobSlice.reducer
