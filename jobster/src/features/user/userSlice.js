@@ -3,6 +3,8 @@ import { toast } from 'react-toastify'
 
 import customFetch from '../../utils/axios'
 import { addToLocalStorage, getFromLocalStorage,removeFromLocalStorage } from '../../utils/localStorage'
+import { clearAllJobsState } from '../allJobs/allJobsSlice'
+import { clearValues } from '../job/jobSlice'
 
 const initialState = {
   isLoading:false,
@@ -62,6 +64,22 @@ export const UpdateUser = createAsyncThunk(
   }
 )
 
+export const clearStore = createAsyncThunk(
+  'user_clearStore',
+  async (message, thunkAPI) => {
+    try {
+      // logout user
+      thunkAPI.dispatch(logoutUser(message))
+      // clear jobs value
+      thunkAPI.dispatch(clearAllJobsState())
+      // clear job input values
+      thunkAPI.dispatch(clearValues())
+      return Promise.resolve()
+    } catch (error) {
+      return Promise.reject()
+    }
+  }
+)
 
 
 
@@ -134,6 +152,9 @@ const userSlice = createSlice({
           .addCase(UpdateUser.rejected, (state, action) => {
             state.isLoading = false
             toast.error(action.payload)
+          })
+          .addCase(clearStore.rejected, (state, action) => {
+            toast.error('There was an Error...')
           })
     },
 })

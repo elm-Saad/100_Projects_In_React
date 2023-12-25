@@ -14,6 +14,12 @@ const SearchContainer = ()=>{
 
     const dispatch = useDispatch()
     const handleSearch = (e) => {
+      /**
+       * when using the search filter (search typing) its go to
+       * fetch every time u type which cause a dozen of fetches 
+       * simple solution is return when ever is steel loading then fetch when its done 
+       * but it steel have a UI problem  could be fixed with debounce method
+       */
       if(isLoading) return
       dispatch(handleChange({name: e.target.name, value:e.target.value}))
     }

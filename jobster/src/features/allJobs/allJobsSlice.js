@@ -29,7 +29,13 @@ const initialState = {
 export const getAllJobs = createAsyncThunk(
   'allJobs_getJobs',
   async(_,thunkAPI)=>{
-    let url = `/jobs`
+    const {page, search, searchStatus, searchType, sort } = thunkAPI.getState().allJobs
+
+    let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}&page=${page}`
+
+    if(search){
+      url +=`&search=${search}`
+    }
 
     try {
       const resp = await customFetch.get(url, {
@@ -77,6 +83,8 @@ const allJobSlice = createSlice({
       state.isLoading = false;
     },
     handleChange:(state,{payload:{name,value}})=>{
+      //rewin the page to 1 for every change in the filter (just because)
+      state.page= 1
       state[name] = value
     },
     clearFilters:(state)=>{
@@ -85,8 +93,9 @@ const allJobSlice = createSlice({
     },
     changePage:(state,{payload})=>{
       state.page = payload
-      // fetch new page 
-    }
+      
+    },
+    clearAllJobsState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -120,6 +129,6 @@ const allJobSlice = createSlice({
 },
 })
 
-export const {showLoading,hideLoading,handleChange,clearFilters,changePage} = allJobSlice.actions
+export const {showLoading,hideLoading,handleChange,clearFilters,changePage,clearAllJobsState} = allJobSlice.actions
 
 export default allJobSlice.reducer
