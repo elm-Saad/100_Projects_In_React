@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
-import customFetch from '../../utils/axios'
+import customFetch, {checkForUnauthorizedResponse} from '../../utils/axios'
 import { getFromLocalStorage } from '../../utils/localStorage'
 import { logoutUser } from '../user/userSlice'
 
@@ -50,14 +50,19 @@ export const createJob = createAsyncThunk(
       thunkAPI.dispatch(clearValues())
       return resp.data
     } catch (error) {
-      if(error.response.status = 401){
-        /** */
-        if (error.response.status === 401) {
-          thunkAPI.dispatch(logoutUser());
-          return thunkAPI.rejectWithValue('Unauthorized! Logging Out...');
-        }
-        return thunkAPI.rejectWithValue(error.response.data.msg);
-      }
+      // if(error.response.status = 401){
+      //   /** */
+      //   if (error.response.status === 401) {
+      //     thunkAPI.dispatch(logoutUser());
+      //     return thunkAPI.rejectWithValue('Unauthorized! Logging Out...');
+      //   }
+      //   return thunkAPI.rejectWithValue(error.response.data.msg);
+      // }
+
+      //base error
+      // return thunkAPI.rejectWithValue(error.response.data.msg)
+      //for 401 and base error
+      return checkForUnauthorizedResponse(error, thunkAPI)
     }
   }
 )
@@ -76,7 +81,10 @@ export const deleteJob = createAsyncThunk(
         return resp.data.msg
       } catch (error) {
         thunkAPI.dispatch(hideLoading())
-        return thunkAPI.rejectWithValue(error.response.data.msg)
+         //base error
+        // return thunkAPI.rejectWithValue(error.response.data.msg)
+        //for 401 and base error
+        return checkForUnauthorizedResponse(error, thunkAPI)
       }
     }
 )
@@ -93,7 +101,10 @@ export const editJobu = createAsyncThunk(
       thunkAPI.dispatch(clearValues())
       return resp.data
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg)
+      //base error
+      // return thunkAPI.rejectWithValue(error.response.data.msg)
+      //for 401 and base error
+      return checkForUnauthorizedResponse(error, thunkAPI)
     }
   }
 )

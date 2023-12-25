@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
-import customFetch from '../../utils/axios'
+import customFetch ,  { checkForUnauthorizedResponse } from '../../utils/axios'
 
 
 // filter feature
@@ -45,7 +45,10 @@ export const getAllJobs = createAsyncThunk(
       })
       return resp.data // return all jobs data
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg)
+      //base error
+      // return thunkAPI.rejectWithValue(error.response.data.msg)
+      //for 401 and base error
+      return checkForUnauthorizedResponse(error, thunkAPI)
     }
   }
 )
@@ -62,8 +65,10 @@ export const showStats = createAsyncThunk(
 
       return res.data
     } catch (error) {
-      // if 401
-      return thunkAPI.rejectWithValue(error.response.data.msg)
+      //base error
+      // return thunkAPI.rejectWithValue(error.response.data.msg)
+      //for 401 and base error
+      return checkForUnauthorizedResponse(error, thunkAPI)
     }
   }
 )

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import customFetch from '../../utils/axios'
+import customFetch,{checkForUnauthorizedResponse} from '../../utils/axios'
 import { addToLocalStorage, getFromLocalStorage,removeFromLocalStorage } from '../../utils/localStorage'
 import { clearAllJobsState } from '../allJobs/allJobsSlice'
 import { clearValues } from '../job/jobSlice'
@@ -54,12 +54,18 @@ export const UpdateUser = createAsyncThunk(
       return resp.data
     } catch (error) {  
       // 570 video handle old token /expired token
-      if (error.response.status === 401) {
-        thunkAPI.dispatch(logoutUser())
-        return thunkAPI.rejectWithValue('Unauthorized! Logging Out...')
-      }
+      // if (error.response.status === 401) {
+      //   thunkAPI.dispatch(logoutUser())
+      //   return thunkAPI.rejectWithValue('Unauthorized! Logging Out...')
+      // }
 
-      return thunkAPI.rejectWithValue(error.response.data.msg)
+      // return thunkAPI.rejectWithValue(error.response.data.msg)
+
+
+      //base error
+      // return thunkAPI.rejectWithValue(error.response.data.msg)
+      //for 401 and base error
+      return checkForUnauthorizedResponse(error, thunkAPI)
     }
   }
 )
