@@ -63,7 +63,7 @@ export const showStats = createAsyncThunk(
 )
 
 
-
+   
 
 
 const allJobSlice = createSlice({
@@ -82,6 +82,10 @@ const allJobSlice = createSlice({
     clearFilters:(state)=>{
       return  {...state,...initialFiltersState}
 
+    },
+    changePage:(state,{payload})=>{
+      state.page = payload
+      // fetch new page 
     }
   },
   extraReducers: (builder) => {
@@ -95,6 +99,7 @@ const allJobSlice = createSlice({
         // pagination
         state.numOfPages = payload.numOfPages
         state.totalJobs = payload.totalJobs
+        
       })
       .addCase(getAllJobs.rejected, (state, {payload}) => {
         state.isLoading = false
@@ -115,6 +120,6 @@ const allJobSlice = createSlice({
 },
 })
 
-export const {showLoading,hideLoading,handleChange,clearFilters} = allJobSlice.actions
+export const {showLoading,hideLoading,handleChange,clearFilters,changePage} = allJobSlice.actions
 
 export default allJobSlice.reducer
